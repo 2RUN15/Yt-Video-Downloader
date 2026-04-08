@@ -1,7 +1,7 @@
 from PyQt6.QtCore import *
 from PyQt6.QtWidgets import *
 
-class FastApp(QObject):
+class CopyListen(QObject):
     link_found = pyqtSignal(str)
     
     def __init__(self):

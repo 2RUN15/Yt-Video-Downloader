@@ -3,7 +3,7 @@ from PyQt6.QtWidgets import *
 from PyQt6.QtGui import QIcon, QAction, QPixmap
 import sys
 import os
-from FastWindow.fastdownact import FastApp
+from actions.fastapp import FastApp
 from MainWindow.mainwindowapp import MainWindow
 from actions.functions_main import json_read, json_save
 from SettingsWindow.settingsapp import SettingsWidget
@@ -50,8 +50,7 @@ class ServiceWindow:
         self.tray.show()
 
         #Windows
-        self.fast_app = FastApp()        
-        self.fast_app.link_found.connect(self.link_found)
+        self.fast_app = FastApp()
         self.fast_app.start()
         
         self.main_ui = MainWindow()
@@ -65,14 +64,11 @@ class ServiceWindow:
             json_save(self.confpath, self.savedata)
             return self.main_ui.show()
     
-    def fast_proc_stat(self, bool):
-        if bool:
+    def fast_proc_stat(self, boolval):
+        if boolval:
             self.fast_app.start()
         else:
             self.fast_app.stop()
-    
-    def link_found(self, link):
-        print(link,flush=True)
     
     def open_settings(self):
         if hasattr(self, "settingswin") and self.settingswin is not None:

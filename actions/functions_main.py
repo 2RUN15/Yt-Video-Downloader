@@ -1,4 +1,5 @@
 import json
+import os
 
 def json_save(file_path, data):
     try:
@@ -14,3 +15,8 @@ def json_read(file_path):
         return data
     except Exception as e:
         raise e
+
+def get_base_dir():
+    MAIN_PATH = os.path.abspath(__file__)
+    BASE_DIR = os.path.dirname(MAIN_PATH)
+    return BASE_DIR
