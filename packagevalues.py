@@ -14,3 +14,8 @@ class auido_settings:
     file_path: str
     video_url: str
     file_name: str
+
+@dataclass
+class warningmesspack:
+    window_title: str
+    text: str

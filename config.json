@@ -1,7 +1,8 @@
 {
     "remembermainchoice": true,
     "video_format": "mp4",
-    "video_quality": "1080p",
+    "video_quality": "1440p",
     "downmode": "fast",
-    "firstopen": false
+    "firstopen": false,
+    "downlocation": "/Users/tuakpina/Downloads"
 }

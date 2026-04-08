@@ -1,4 +1,5 @@
 from PyQt6.QtWidgets import QMessageBox
+from packagevalues import warningmesspack
 
 class FileChosErr(QMessageBox):
     def __init__(self):
@@ -32,3 +33,11 @@ class FastInfo(QMessageBox):
         self.setText("Fast Download listens to the websites you've copied in the background.\n\nIt allows you to download easily with the default settings.")
         self.setStandardButtons(self.StandardButton.Ok)
         self.setIcon(self.Icon.Information)
+
+class WarningMess(QMessageBox):
+    def __init__(self, conf: warningmesspack):
+        super().__init__()
+        self.setWindowTitle(f"{conf.window_title}")
+        self.setText(f"{conf.text}")
+        self.setStandardButtons(self.StandardButton.Ok)
+        self.setIcon(self.Icon.Warning)
