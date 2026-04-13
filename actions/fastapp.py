@@ -3,7 +3,7 @@ from PyQt6.QtWidgets import *
 from actions.copylisten import CopyListen
 from actions.process import DownloadWideo
 from packagevalues import vidoe_settings
-from actions.functions_main import json_read, get_base_dir
+from actions.functions_main import json_read, path_join
 import os
 from NotificationWindow.notifapp import NotificationWindow
 
@@ -17,8 +17,7 @@ class FastApp:
         self.downlocation = None
         self.file_name = ""
         
-        self.base_dir = get_base_dir()
-        self.configjson_path = os.path.join(self.base_dir, os.pardir, "config.json")
+        self.configjson_path = path_join(["config.json"])
         
         self.notification_window = NotificationWindow()
         
@@ -62,4 +61,4 @@ class FastApp:
         self.video_format = self.configjson["video_format"]
         self.video_quality = self.configjson["video_quality"][:-1]
         self.downlocation = self.configjson["downlocation"]
-    
+        

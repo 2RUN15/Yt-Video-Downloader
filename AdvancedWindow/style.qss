@@ -1,0 +1,153 @@
+/* Ana Pencere ve Genel Metinler */
+QWidget {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 13px;
+}
+
+/* Sekme (Tab) Sistemi */
+QTabWidget::pane {
+    border: 1px solid #333333;
+    border-radius: 8px;
+    background-color: #252526;
+    margin-top: -1px;
+}
+
+QTabBar::tab {
+    background-color: #1e1e1e;
+    color: #888888;
+    padding: 8px 24px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border: 1px solid transparent;
+    margin-right: 2px;
+}
+
+QTabBar::tab:selected {
+    background-color: #252526;
+    color: #0A84FF;
+    border: 1px solid #333333;
+    border-bottom-color: #252526; /* Alt çizgiyi gizle ki içerikle birleşsin */
+    font-weight: bold;
+}
+
+QTabBar::tab:hover:!selected {
+    background-color: #2a2a2d;
+    color: #e0e0e0;
+}
+
+/* Açılır Menüler (ComboBox) */
+QComboBox {
+    background-color: #2d2d30;
+    border: 1px solid #3e3e42;
+    border-radius: 6px;
+    padding: 6px 12px;
+    min-width: 100px;
+}
+
+QComboBox:hover {
+    border: 1px solid #0A84FF;
+}
+
+QComboBox::drop-down {
+    border: none;
+    width: 24px;
+}
+
+QComboBox QAbstractItemView {
+    background-color: #2d2d30;
+    border: 1px solid #0A84FF;
+    border-radius: 6px;
+    selection-background-color: #0A84FF;
+    selection-color: #ffffff;
+    outline: none;
+}
+
+/* Başlıklar ve Yazılar */
+QLabel {
+    font-weight: 500;
+    color: #cccccc;
+    background: transparent;
+}
+
+/* Onay Kutuları (CheckBox) */
+QCheckBox {
+    spacing: 8px;
+}
+
+QCheckBox::indicator {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #3e3e42;
+    border-radius: 4px;
+    background-color: #1e1e1e;
+}
+
+QCheckBox::indicator:hover {
+    border-color: #0A84FF;
+}
+
+QCheckBox::indicator:checked {
+    background-color: #0A84FF;
+    border-color: #0A84FF;
+}
+
+/* Kaydırıcı (Slider - Ses Kalitesi için) */
+QSlider::groove:horizontal {
+    border-radius: 4px;
+    height: 6px;
+    background: #3e3e42;
+}
+
+QSlider::sub-page:horizontal {
+    background: #0A84FF;
+    border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+    background: #ffffff;
+    width: 16px;
+    height: 16px;
+    margin: -5px 0;
+    border-radius: 8px;
+    border: 1px solid #3e3e42;
+}
+
+QSlider::handle:horizontal:hover {
+    background: #0A84FF;
+    border: 2px solid #ffffff;
+}
+
+/* Sadece Okunabilir Metin Kutusu (QLineEdit) */
+QLineEdit {
+    background-color: #1e1e1e;
+    border: 1px solid #3e3e42;
+    border-radius: 6px;
+    padding: 6px;
+    color: #0A84FF;
+    font-weight: bold;
+    text-align: center;
+}
+
+QLineEdit:read-only {
+    background-color: #252526;
+    color: #888888;
+}
+
+/* Çerçeveler (GroupBox) */
+QGroupBox {
+    border: 1px solid #3e3e42;
+    border-radius: 8px;
+    margin-top: 15px;
+    padding-top: 15px;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    left: 15px;
+    padding: 0 5px;
+    color: #0A84FF;
+    font-weight: bold;
+}

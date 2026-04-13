@@ -40,6 +40,7 @@ class MainWindow(QMainWindow):
         
         #Buttons
         self.ui.fastButton.clicked.connect(self.fastButton)
+        self.ui.advancedButton.clicked.connect(self.advancedButtonClicked)
         
         self.ui.checkBox.toggled.connect(self.checkBox)
         
@@ -53,6 +54,12 @@ class MainWindow(QMainWindow):
         json_save(self.configjsonpath, self.saveddata)
         self.close()
         self.fastinfo.exec()
+    
+    def advancedButtonClicked(self):
+        self.saveddata = json_read(self.configjsonpath)
+        self.saveddata["downmode"] = "advanced"
+        json_save(self.configjsonpath, self.saveddata)
+        self.close()
     
     def settingsButtonFunc(self):
         self.settingsButtonWin.show()

@@ -4,9 +4,11 @@ from PyQt6.QtGui import QIcon, QAction, QPixmap
 import sys
 import os
 from actions.fastapp import FastApp
+from actions.advancedapp import AdvancedApp
 from MainWindow.mainwindowapp import MainWindow
 from actions.functions_main import json_read, json_save
 from SettingsWindow.settingsapp import SettingsWidget
+from AdvancedWindow.advancedwindowapp import AdvancedWindow
 
 APP_PATH = os.path.abspath(__file__)
 BASE_DIR = os.path.dirname(APP_PATH)
@@ -18,7 +20,9 @@ class ServiceWindow:
         
         #NoneValus
         self.settingswin = None
-
+        self.savedata = None
+        self.downmode = None
+        
         #TrayMenu
         self.tray = QSystemTrayIcon()
         self.icon = QIcon(APP_ICON)
@@ -48,27 +52,37 @@ class ServiceWindow:
         #Çalıştırma
         self.tray.setContextMenu(self.menu)
         self.tray.show()
-
-        #Windows
-        self.fast_app = FastApp()
-        self.fast_app.start()
-        
-        self.main_ui = MainWindow()
-        self.confpath = os.path.join(BASE_DIR,os.pardir,"config.json")
         
         #Remember Choice
+        self.confpath = os.path.join(BASE_DIR,os.pardir,"config.json")
         self.savedata = json_read(self.confpath)
         
         if self.savedata["remembermainchoice"] == False:
+            self.main_ui = MainWindow()
             self.savedata["remembermainchoice"] = False
             json_save(self.confpath, self.savedata)
-            return self.main_ui.show()
+            self.main_ui.show()
+        
+        #Windows
+        self.savedata = json_read(self.confpath)
+        self.downmode = self.savedata["downmode"]
+        if self.downmode == "fast":
+            self.fast_app = FastApp()
+            self.fast_app.start()
+        elif self.downmode == "advanced":
+            self.advanced_app = AdvancedApp()
+            self.advanced_app.start()
     
     def fast_proc_stat(self, boolval):
-        if boolval:
+        if boolval and self.downmode == "fast":
             self.fast_app.start()
-        else:
+        elif not boolval and self.downmode == "fast":
             self.fast_app.stop()
+        
+        if boolval and self.downmode == "advanced":
+            self.advanced_app.start()
+        elif not boolval and self.downmode == "advanced":
+            self.advanced_app.stop()
     
     def open_settings(self):
         if hasattr(self, "settingswin") and self.settingswin is not None:

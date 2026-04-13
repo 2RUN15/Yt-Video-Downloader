@@ -27,7 +27,6 @@ class CopyListen(QObject):
     def send_signal(self):
         if not self.is_activate:
             return
-         
         text = self.board.text()
         
         if text and self.last_link != text:
