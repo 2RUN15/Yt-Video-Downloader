@@ -1,9 +1,28 @@
-/* Ana Pencere ve Genel Metinler */
+/* ===================================================
+   CROSS-PLATFORM DARK THEME QSS
+   Windows'ta beyaz arka plan sorununu çözer.
+   Python tarafında QPalette zorlaması da gereklidir
+   (yukarıdaki diyagramdaki koda bakın).
+   =================================================== */
+
+/* Ana widget — tüm kalıtımın temeli */
 QWidget {
     background-color: #1e1e1e;
     color: #e0e0e0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-size: 13px;
+}
+
+/* Windows'ta beyazı çeken container'lar — açıkça tanımlanmalı */
+QMainWindow, QDialog, QFrame, QScrollArea,
+QStackedWidget, QSplitter {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+QScrollArea > QWidget,
+QScrollArea > QWidget > QWidget {
+    background-color: #1e1e1e;
 }
 
 /* Sekme (Tab) Sistemi */
@@ -28,13 +47,39 @@ QTabBar::tab:selected {
     background-color: #252526;
     color: #0A84FF;
     border: 1px solid #333333;
-    border-bottom-color: #252526; /* Alt çizgiyi gizle ki içerikle birleşsin */
+    border-bottom-color: #252526;
     font-weight: bold;
 }
 
 QTabBar::tab:hover:!selected {
     background-color: #2a2a2d;
     color: #e0e0e0;
+}
+
+/* Butonlar */
+QPushButton {
+    background-color: #2d2d30;
+    color: #e0e0e0;
+    border: 1px solid #3e3e42;
+    border-radius: 6px;
+    padding: 6px 16px;
+    font-weight: 500;
+}
+
+QPushButton:hover {
+    border-color: #0A84FF;
+    background-color: #37373a;
+}
+
+QPushButton:pressed {
+    background-color: #0A84FF;
+    color: #ffffff;
+    border-color: #0A84FF;
+}
+
+QPushButton:disabled {
+    color: #555558;
+    border-color: #2e2e31;
 }
 
 /* Açılır Menüler (ComboBox) */
@@ -71,7 +116,7 @@ QLabel {
     background: transparent;
 }
 
-/* Onay Kutuları (CheckBox) */
+/* Onay Kutuları */
 QCheckBox {
     spacing: 8px;
 }
@@ -93,7 +138,7 @@ QCheckBox::indicator:checked {
     border-color: #0A84FF;
 }
 
-/* Kaydırıcı (Slider - Ses Kalitesi için) */
+/* Kaydırıcı (Slider) */
 QSlider::groove:horizontal {
     border-radius: 4px;
     height: 6px;
@@ -119,7 +164,7 @@ QSlider::handle:horizontal:hover {
     border: 2px solid #ffffff;
 }
 
-/* Sadece Okunabilir Metin Kutusu (QLineEdit) */
+/* Metin Kutusu (QLineEdit) */
 QLineEdit {
     background-color: #1e1e1e;
     border: 1px solid #3e3e42;
@@ -127,7 +172,6 @@ QLineEdit {
     padding: 6px;
     color: #0A84FF;
     font-weight: bold;
-    text-align: center;
 }
 
 QLineEdit:read-only {
@@ -150,4 +194,77 @@ QGroupBox::title {
     padding: 0 5px;
     color: #0A84FF;
     font-weight: bold;
+}
+
+/* Kaydırma Çubukları */
+QScrollBar:vertical {
+    background: #1e1e1e;
+    width: 8px;
+    border-radius: 4px;
+    margin: 0;
+}
+
+QScrollBar::handle:vertical {
+    background: #3e3e42;
+    border-radius: 4px;
+    min-height: 24px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background: #0A84FF;
+}
+
+QScrollBar::add-line:vertical,
+QScrollBar::sub-line:vertical {
+    height: 0;
+}
+
+QScrollBar:horizontal {
+    background: #1e1e1e;
+    height: 8px;
+    border-radius: 4px;
+    margin: 0;
+}
+
+QScrollBar::handle:horizontal {
+    background: #3e3e42;
+    border-radius: 4px;
+    min-width: 24px;
+}
+
+QScrollBar::handle:horizontal:hover {
+    background: #0A84FF;
+}
+
+QScrollBar::add-line:horizontal,
+QScrollBar::sub-line:horizontal {
+    width: 0;
+}
+
+/* Tooltip */
+QToolTip {
+    background-color: #2d2d30;
+    color: #e0e0e0;
+    border: 1px solid #3e3e42;
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+
+/* Menü */
+QMenu {
+    background-color: #2d2d30;
+    color: #e0e0e0;
+    border: 1px solid #3e3e42;
+    border-radius: 6px;
+}
+
+QMenu::item:selected {
+    background-color: #0A84FF;
+    color: #ffffff;
+}
+
+QMenu::separator {
+    height: 1px;
+    background: #3e3e42;
+    margin: 4px 0;
 }
