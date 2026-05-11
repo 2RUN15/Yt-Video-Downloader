@@ -6,11 +6,8 @@ import sys
 from PyQt6.QtGui import QGuiApplication
 from actions.messagebox import FastInfo
 from SettingsWindow.settingsapp import SettingsWidget
-from actions.functions_main import json_save,json_read
+from actions.functions_main import json_save,json_read,get_conf_path,file_read, path_join
 import os
-
-MAIN_PATH = os.path.abspath(__file__)
-BASE_DIR = os.path.dirname(MAIN_PATH)
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -21,16 +18,14 @@ class MainWindow(QMainWindow):
         self.setFixedSize(300,220)
         
         #PATHS
-        self.configjsonpath = f"{BASE_DIR}/../config.json"
+        self.configjsonpath = get_conf_path()
         self.saveddata = json_read(self.configjsonpath)
+        self.iconPath = path_join("icons","settings.png")
         
         #Style
-        try:
-            with open(f"{BASE_DIR}/style.qss", "r", encoding="utf-8") as f:
-                style = f.read()
-            self.setStyleSheet(style)
-        except FileNotFoundError:
-            print("Uyarı: style.qss dosyası bulunamadı!")
+        style_path = path_join("MainWindow","style.qss")
+        style_File = file_read(style_path)
+        self.setStyleSheet(style_File)
         
         #Dialogs
         self.fastinfo = FastInfo()
@@ -44,7 +39,7 @@ class MainWindow(QMainWindow):
         
         self.ui.checkBox.toggled.connect(self.checkBox)
         
-        self.ui.settingsButton.setIcon(QIcon(f"{BASE_DIR}/../icons/settings.png"))
+        self.ui.settingsButton.setIcon(QIcon(self.iconPath))
         self.ui.settingsButton.setIconSize(QSize(32,32))
         self.ui.settingsButton.clicked.connect(self.settingsButtonFunc)
         

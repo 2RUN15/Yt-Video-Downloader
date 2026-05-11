@@ -1,15 +1,11 @@
 from PyQt6.QtCore import *
 from PyQt6.QtWidgets import *
 from SettingsWindow.settingui import Ui_Form
-from actions.functions_main import json_save, json_read
+from actions.functions_main import json_save, json_read, get_conf_path
 from actions.dialogs import chose_folder
 import os
 from packagevalues import warningmesspack
 from actions.messagebox import WarningMess
-
-RUN_PATH = os.path.abspath(__file__)
-BASE_DIR = os.path.dirname(RUN_PATH)
-
 
 class SettingsWidget(QWidget):
     def __init__(self):
@@ -25,7 +21,7 @@ class SettingsWidget(QWidget):
         self.text = "Please choose download location"
         self.window_tittle = "WARNING!"
 
-        self.configjsonpath = os.path.join(BASE_DIR, os.pardir, "config.json")
+        self.configjsonpath = get_conf_path()
 
         # Buttons
         self.ui.okButton.clicked.connect(self.okButton)
