@@ -1,3 +1,4 @@
 *.ui
 testmain.py
 __pycache__
+config.json

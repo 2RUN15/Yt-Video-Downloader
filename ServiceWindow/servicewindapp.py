@@ -6,7 +6,7 @@ import os
 from actions.fastapp import FastApp
 from actions.advancedapp import AdvancedApp
 from MainWindow.mainwindowapp import MainWindow
-from actions.functions_main import json_read, json_save, get_conf_path,path_join
+from actions.functions_main import json_read, json_save, get_conf_path,path_join,check_json
 from SettingsWindow.settingsapp import SettingsWidget
 from AdvancedWindow.advancedwindowapp import AdvancedWindow
 import platform
@@ -33,6 +33,9 @@ class ServiceWindow:
         
         #DockVisible
         set_mac_dock_icon_visible(False)
+        
+        #CheckConfigJson
+        check_json(False)
         
         #NoneValus
         self.settingswin = None

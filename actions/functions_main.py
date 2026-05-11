@@ -47,3 +47,18 @@ def get_conf_path():
         return file_path
     except Exception as e:
         raise e
+
+def check_json(boolValue: bool):
+    default_settings = {
+        "video_format": "",
+        "remembermainchoice": False,
+        "downmode": "fast",
+        "video_quality": "",
+        "downlocation": "",
+        "firstopen": True
+    }
+    
+    conf_path = get_conf_path()
+    if not os.path.isfile(conf_path) or boolValue:
+        json_save(conf_path, default_settings)
+
