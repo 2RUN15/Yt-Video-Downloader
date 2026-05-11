@@ -61,12 +61,13 @@ class DownloadWideo(QThread):
         if self.video_quality == "The Bes" or self.video_quality is None:
             self.video_quality_arg = "bestvideo+bestaudio/best"
         else:
-            self.video_quality_arg = f"bestvideo[height={conf.video_quality}]+bestaudio/best"
+            self.video_quality_arg = f"bestvideo[height<={conf.video_quality}]+bestaudio/best"
         
         self.command = [
             "yt-dlp",
             "-f", self.video_quality_arg,
-            "--remux-video", f"{self.video_format}",
+            "--merge-output-format", f"{self.video_format}",
+            "--postprocessor-args", "ffmpeg:-c:a aac",
             "-o", self.output_template,
             f"{self.video_url}"
         ]
