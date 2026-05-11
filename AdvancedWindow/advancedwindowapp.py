@@ -2,7 +2,7 @@ from PyQt6.QtCore import *
 from PyQt6.QtWidgets import *
 import sys
 from AdvancedWindow.advanced_window_ui import Ui_Form
-from actions.functions_main import path_join, file_read, json_read
+from actions.functions_main import path_join, file_read, json_read, get_conf_path
 from packagevalues import vidoe_settings
 from actions.process import DownloadWideo
 
@@ -12,10 +12,14 @@ class AdvancedWindow(QWidget):
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         
+        #JsonFile
+        self.confPath = get_conf_path()
+        self.confFile = json_read(self.confPath)
+        
         #EmptyValues
         self.link = ""
         self.file_name = ""
-        self.loc = "/Users/tuakpina/Desktop"
+        self.loc = self.confFile["downlocation"]
         self.worker = ""
         
         style_path = path_join(["AdvancedWindow","style.qss"])
@@ -65,4 +69,6 @@ class AdvancedWindow(QWidget):
     
     def set_link(self, link):
         self.link = link
-            
+    
+    def update_settings(self):
+        self.confFile = json_read(self.confPath)

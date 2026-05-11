@@ -16,9 +16,7 @@ class AdvancedApp:
         self.advanced_window = None
             
     def link_found(self, link):
-        if "youtube.com" not in link:
-            return
-        
+
         if not hasattr(self, "advanced_window") or self.advanced_window is None:
             self.advanced_window = AdvancedWindow()
             
@@ -38,3 +36,6 @@ class AdvancedApp:
     def stop(self):
         self.copy_listen.stop()
     
+    def update_settings(self):
+        if hasattr(self, "advanced_window") and self.advanced_window:
+            self.advanced_window.update_settings()

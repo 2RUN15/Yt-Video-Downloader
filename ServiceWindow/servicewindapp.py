@@ -9,14 +9,32 @@ from MainWindow.mainwindowapp import MainWindow
 from actions.functions_main import json_read, json_save
 from SettingsWindow.settingsapp import SettingsWidget
 from AdvancedWindow.advancedwindowapp import AdvancedWindow
+import platform
 
 APP_PATH = os.path.abspath(__file__)
 BASE_DIR = os.path.dirname(APP_PATH)
 APP_ICON = f"{BASE_DIR}/../icons/app.png"
 
+#Python ikonunu kaldırır
+def set_mac_dock_icon_visible(visible):
+    if platform.system() == "Darwin":
+        try:
+            from AppKit import NSApp, NSApplicationActivationPolicyRegular, NSApplicationActivationPolicyAccessory
+            
+            if visible:
+                NSApp.setActivationPolicy_(NSApplicationActivationPolicyRegular)
+            
+            else:
+                NSApp.setActivationPolicy_(NSApplicationActivationPolicyAccessory)
+        except ImportError:
+            pass
+
 class ServiceWindow:
     def __init__(self):
         super().__init__()
+        
+        #DockVisible
+        set_mac_dock_icon_visible(False)
         
         #NoneValus
         self.settingswin = None
@@ -67,30 +85,34 @@ class ServiceWindow:
         self.savedata = json_read(self.confpath)
         self.downmode = self.savedata["downmode"]
         if self.downmode == "fast":
-            self.fast_app = FastApp()
-            self.fast_app.start()
+            self.worker = FastApp()
+            self.worker.start()
         elif self.downmode == "advanced":
-            self.advanced_app = AdvancedApp()
-            self.advanced_app.start()
+            self.worker = AdvancedApp()
+            self.worker.start()
     
     def fast_proc_stat(self, boolval):
         if boolval and self.downmode == "fast":
-            self.fast_app.start()
+            self.worker.start()
         elif not boolval and self.downmode == "fast":
-            self.fast_app.stop()
+            self.worker.stop()
         
         if boolval and self.downmode == "advanced":
-            self.advanced_app.start()
+            self.worker.start()
         elif not boolval and self.downmode == "advanced":
-            self.advanced_app.stop()
+            self.worker.stop()
     
     def open_settings(self):
+        set_mac_dock_icon_visible(True)
+        
+        if hasattr(self, "worker") and self.worker:
+            self.worker.stop()
         if hasattr(self, "settingswin") and self.settingswin is not None:
             self.settingswin.activateWindow()
             self.settingswin.raise_()
             return
         
-        self.settingswin = SettingsWidget()
+        self.settingswin = MainWindow()
         
         self.settingswin.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose)
         
@@ -98,6 +120,26 @@ class ServiceWindow:
         
         self.settingswin.show()
     
+    def start_worker(self):
+        self.savedata = json_read(self.confpath)
+        self.downmode = self.savedata["downmode"]
+        
+        if hasattr(self, "worker") and self.worker:
+            self.worker.stop()
+
+        if self.downmode == "fast":
+            self.worker = FastApp()
+        elif self.downmode == "advanced":
+            self.worker = AdvancedApp()
+            
+        self.worker.update_settings()
+        self.worker.start()
+    
     def _on_settings_closed(self):
         self.settingswin = None
+        set_mac_dock_icon_visible(False)
+        if hasattr(self, "worker") and self.worker:
+            self.worker.update_settings()
+            self.start_worker()
+        
         

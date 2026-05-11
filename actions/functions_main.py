@@ -40,3 +40,10 @@ def path_join(file_paths: list):
         return full_path
     except Exception as e:
         raise e
+
+def get_conf_path():
+    try:
+        file_path = path_join(["config.json"])
+        return file_path
+    except Exception as e:
+        raise e

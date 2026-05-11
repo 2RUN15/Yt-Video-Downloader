@@ -1,5 +1,6 @@
 from PyQt6.QtCore import *
 from PyQt6.QtWidgets import *
+import re
 
 class CopyListen(QObject):
     link_found = pyqtSignal(str)
@@ -8,6 +9,8 @@ class CopyListen(QObject):
         super().__init__()
         self.board = QApplication.clipboard()
         self.last_link = ""
+        self.patterns = r"(youtube\.com|youtu\.be|x\.com|instagram\.com)"
+        
         self.is_activate = False
         self.board.dataChanged.connect(self.send_signal)
         
@@ -29,6 +32,11 @@ class CopyListen(QObject):
             return
         text = self.board.text()
         
-        if text and self.last_link != text:
+        if text and self.last_link != text and self.check_true_link(text):
             self.last_link = text
             self.link_found.emit(text)
+    
+    def check_true_link(self, text: str) -> bool:
+        if re.search(self.patterns, text):
+            return True
+        return False

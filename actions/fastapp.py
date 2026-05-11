@@ -3,7 +3,7 @@ from PyQt6.QtWidgets import *
 from actions.copylisten import CopyListen
 from actions.process import DownloadWideo
 from packagevalues import vidoe_settings
-from actions.functions_main import json_read, path_join
+from actions.functions_main import json_read, path_join, get_conf_path
 import os
 from NotificationWindow.notifapp import NotificationWindow
 
@@ -17,7 +17,7 @@ class FastApp:
         self.downlocation = None
         self.file_name = ""
         
-        self.configjson_path = path_join(["config.json"])
+        self.configjson_path = get_conf_path()
         
         self.notification_window = NotificationWindow()
         
@@ -34,9 +34,6 @@ class FastApp:
         self.copy_listen.stop()
     
     def get_link(self, link):
-
-        if "youtube.com" not in link:
-            return
         
         self.get_conf_json()
 
@@ -61,4 +58,6 @@ class FastApp:
         self.video_format = self.configjson["video_format"]
         self.video_quality = self.configjson["video_quality"][:-1]
         self.downlocation = self.configjson["downlocation"]
-        
+    
+    def update_settings(self):
+        self.configjson = json_read(self.configjson_path)

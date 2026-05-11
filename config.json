@@ -3,6 +3,6 @@
     "video_format": "mp4",
     "video_quality": "1080p",
     "downmode": "advanced",
-    "firstopen": true,
+    "firstopen": false,
     "downlocation": "/Users/tuakpina/Desktop"
 }
