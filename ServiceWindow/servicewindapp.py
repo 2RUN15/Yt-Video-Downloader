@@ -6,14 +6,12 @@ import os
 from actions.fastapp import FastApp
 from actions.advancedapp import AdvancedApp
 from MainWindow.mainwindowapp import MainWindow
-from actions.functions_main import json_read, json_save
+from actions.functions_main import json_read, json_save, get_conf_path,path_join
 from SettingsWindow.settingsapp import SettingsWidget
 from AdvancedWindow.advancedwindowapp import AdvancedWindow
 import platform
 
-APP_PATH = os.path.abspath(__file__)
-BASE_DIR = os.path.dirname(APP_PATH)
-APP_ICON = f"{BASE_DIR}/../icons/app.png"
+APP_ICON = path_join("icons","app.png")
 
 #Python ikonunu kaldırır
 def set_mac_dock_icon_visible(visible):
@@ -72,7 +70,7 @@ class ServiceWindow:
         self.tray.show()
         
         #Remember Choice
-        self.confpath = os.path.join(BASE_DIR,os.pardir,"config.json")
+        self.confpath = get_conf_path()
         self.savedata = json_read(self.confpath)
         
         if self.savedata["remembermainchoice"] == False:
