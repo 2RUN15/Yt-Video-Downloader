@@ -22,7 +22,7 @@ class AdvancedWindow(QWidget):
         self.loc = self.confFile["downlocation"]
         self.worker = ""
         
-        style_path = path_join("AdvancedWindow","style.qss")
+        style_path = path_join("assets","advanced_win.qss")
         self.style = file_read(style_path)
         self.setStyleSheet(self.style)
 

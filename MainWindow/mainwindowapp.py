@@ -23,7 +23,7 @@ class MainWindow(QMainWindow):
         self.iconPath = path_join("icons","settings.png")
         
         #Style
-        style_path = path_join("MainWindow","style.qss")
+        style_path = path_join("assets","main_win.qss")
         style_File = file_read(style_path)
         self.setStyleSheet(style_File)
         
