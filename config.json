@@ -2,7 +2,7 @@
     "remembermainchoice": true,
     "video_format": "mp4",
     "video_quality": "1080p",
-    "downmode": "advanced",
+    "downmode": "fast",
     "firstopen": false,
     "downlocation": "/Users/tuakpina/Desktop"
 }

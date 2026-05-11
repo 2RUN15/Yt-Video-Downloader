@@ -1,4 +1,3 @@
 *.ui
-*_ui.py
 testmain.py
 __pycache__
