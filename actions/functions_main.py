@@ -1,8 +1,6 @@
 import json
 import os
-
-MAIN_PATH = os.path.abspath(__file__)
-BASE_DIR = os.path.dirname(MAIN_PATH)
+import sys
 
 def json_save(file_path, data):
     try:
@@ -29,11 +27,13 @@ def file_read(file_path):
 
 def get_base_dir():
     try:
-        return os.path.join(BASE_DIR, os.pardir)
-    except Exception as e:
-        raise e
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    
+    return base_path
 
-def path_join(file_paths: list):
+def path_join(*file_paths):
     try:
         base_dir = get_base_dir()
         full_path = os.path.join(base_dir, *file_paths)
@@ -43,7 +43,7 @@ def path_join(file_paths: list):
 
 def get_conf_path():
     try:
-        file_path = path_join(["config.json"])
+        file_path = path_join("config.json")
         return file_path
     except Exception as e:
         raise e
