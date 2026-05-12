@@ -25,7 +25,6 @@ class NotificationWindow(QDialog):
         
         #Style
         style_path = path_join("assets","notification_win.qss")
-        print(style_path)
         self.styleFile = file_read(style_path)
         self.setStyleSheet(self.styleFile)
         

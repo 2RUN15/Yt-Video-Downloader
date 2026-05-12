@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file '/Users/tuakpina/Projects/PythonProjects/PersonalProjects/YT-Downloader/SettingsWindow/untitled.ui'
+# Form implementation generated from reading ui file '/Users/tuakpina/Projects/PythonProjects/PersonalProjects/YT-Downloader/SettingsWindow/settings.ui'
 #
 # Created by: PyQt6 UI code generator 6.10.0
 #
@@ -45,6 +45,7 @@ class Ui_Form(object):
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
         self.gridLayout.addItem(spacerItem2, 1, 5, 1, 1)
         self.qualityBox = QtWidgets.QComboBox(parent=self.tab_7)
+        self.qualityBox.setMinimumSize(QtCore.QSize(0, 32))
         self.qualityBox.setObjectName("qualityBox")
         self.qualityBox.addItem("")
         self.qualityBox.addItem("")
@@ -56,6 +57,7 @@ class Ui_Form(object):
         self.qualityBox.addItem("")
         self.gridLayout.addWidget(self.qualityBox, 2, 1, 1, 4)
         self.formatBox = QtWidgets.QComboBox(parent=self.tab_7)
+        self.formatBox.setMinimumSize(QtCore.QSize(0, 32))
         self.formatBox.setObjectName("formatBox")
         self.formatBox.addItem("")
         self.formatBox.addItem("")
@@ -64,6 +66,7 @@ class Ui_Form(object):
         self.chooselocButton.setObjectName("chooselocButton")
         self.gridLayout.addWidget(self.chooselocButton, 3, 4, 1, 2)
         self.file_path_line = QtWidgets.QLineEdit(parent=self.tab_7)
+        self.file_path_line.setMinimumSize(QtCore.QSize(0, 33))
         self.file_path_line.setReadOnly(True)
         self.file_path_line.setObjectName("file_path_line")
         self.gridLayout.addWidget(self.file_path_line, 4, 0, 1, 6)

@@ -1,108 +1,143 @@
-/* Ana Pencere ve Genel Metinler */
+/* Ana Pencere ve Genel Yapı */
 QWidget {
-    background-color: #1e1e1e;
-    color: #e0e0e0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #18181b; /* Daha derin, tok bir antrasit */
+    color: #e4e4e7;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     font-size: 13px;
 }
 
+/* ========================================= */
+/* KAYMA SORUNUNU ÇÖZEN KISIM                */
+/* ========================================= */
+QLabel {
+    font-weight: 500;
+    color: #a1a1aa;
+    background: transparent;
+    margin: 0px; /* Fazladan itilmeyi engeller */
+    padding: 0px;
+}
+
+QGroupBox {
+    border: 1px solid #3f3f46;
+    border-radius: 10px;
+    margin-top: 24px;   /* Başlığın dışarı taşması için yer açar */
+    padding-top: 16px;  /* İçerikteki ilk elemanın çizgiden uzaklığı */
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-bottom: 8px;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    left: 14px;
+    top: 0px; /* Negatif değerleri sıfırlayarak düzenin bozulmasını engelledik */
+    background-color: #18181b; /* Arka planı kesip net görünmesi için ana renk */
+    padding: 2px 8px;
+    color: #8b5cf6; /* Canlı Mor Accent */
+    font-weight: bold;
+    font-size: 13px;
+    border-radius: 4px;
+}
+
+/* ========================================= */
+/* RENKLENDİRİLMİŞ MODERN BİLEŞENLER         */
+/* ========================================= */
+
 /* Sekme (Tab) Sistemi */
 QTabWidget::pane {
-    border: 1px solid #333333;
-    border-radius: 8px;
-    background-color: #252526;
-    margin-top: -1px;
+    border: none; /* Çerçeveyi kaldırıp sekmeleri daha özgür bıraktık */
+    background-color: transparent;
+    margin-top: 4px;
 }
 
 QTabBar::tab {
-    background-color: #1e1e1e;
-    color: #888888;
+    background-color: #27272a;
+    color: #a1a1aa;
     padding: 8px 24px;
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
-    border: 1px solid transparent;
-    margin-right: 2px;
-}
-
-QTabBar::tab:selected {
-    background-color: #252526;
-    color: #0A84FF;
-    border: 1px solid #333333;
-    border-bottom-color: #252526; /* Alt çizgiyi gizle ki içerikle birleşsin */
+    margin: 0px 4px;
+    border-radius: 8px;
     font-weight: bold;
 }
 
+/* Seçili sekmeye renkli gradyan efekti */
+QTabBar::tab:selected {
+    background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #6366f1, stop:1 #8b5cf6); /* İndigo'dan Mora */
+    color: #ffffff;
+}
+
 QTabBar::tab:hover:!selected {
-    background-color: #2a2a2d;
-    color: #e0e0e0;
+    background-color: #3f3f46;
+    color: #ffffff;
 }
 
 /* Açılır Menüler (ComboBox) */
 QComboBox {
-    background-color: #2d2d30;
-    border: 1px solid #3e3e42;
-    border-radius: 6px;
+    background-color: #27272a;
+    border: 1px solid #3f3f46;
+    border-radius: 8px;
     padding: 6px 12px;
     min-width: 100px;
+    color: #ffffff;
 }
 
 QComboBox:hover {
-    border: 1px solid #0A84FF;
+    border: 1px solid #6366f1; /* Hover durumunda İndigo parlaması */
+    background-color: #3f3f46;
+}
+
+QComboBox:focus {
+    border: 2px solid #8b5cf6; /* Seçilince Mor çerçeve */
 }
 
 QComboBox::drop-down {
     border: none;
-    width: 24px;
+    width: 28px;
 }
 
 QComboBox QAbstractItemView {
-    background-color: #2d2d30;
-    border: 1px solid #0A84FF;
-    border-radius: 6px;
-    selection-background-color: #0A84FF;
+    background-color: #27272a;
+    border: 1px solid #8b5cf6;
+    border-radius: 8px;
+    selection-background-color: #6366f1;
     selection-color: #ffffff;
     outline: none;
 }
 
-/* Başlıklar ve Yazılar */
-QLabel {
-    font-weight: 500;
-    color: #cccccc;
-    background: transparent;
-}
-
 /* Onay Kutuları (CheckBox) */
 QCheckBox {
-    spacing: 8px;
+    spacing: 10px;
+    color: #e4e4e7;
 }
 
 QCheckBox::indicator {
     width: 18px;
     height: 18px;
-    border: 2px solid #3e3e42;
-    border-radius: 4px;
-    background-color: #1e1e1e;
+    border: 2px solid #3f3f46;
+    border-radius: 6px; /* Daha tatlı köşeler */
+    background-color: #18181b;
 }
 
 QCheckBox::indicator:hover {
-    border-color: #0A84FF;
+    border-color: #6366f1;
 }
 
 QCheckBox::indicator:checked {
-    background-color: #0A84FF;
-    border-color: #0A84FF;
+    background-color: #6366f1;
+    border-color: #6366f1;
 }
 
-/* Kaydırıcı (Slider - Ses Kalitesi için) */
+/* Kaydırıcı (Slider) - Canlı Gradyan */
 QSlider::groove:horizontal {
-    border-radius: 4px;
+    border-radius: 3px;
     height: 6px;
-    background: #3e3e42;
+    background: #3f3f46;
 }
 
 QSlider::sub-page:horizontal {
-    background: #0A84FF;
-    border-radius: 4px;
+    /* Mavi'den Cyan'a (Turkuaz) geçiş yapan dolgu */
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #3b82f6, stop:1 #06b6d4); 
+    border-radius: 3px;
 }
 
 QSlider::handle:horizontal {
@@ -111,43 +146,34 @@ QSlider::handle:horizontal {
     height: 16px;
     margin: -5px 0;
     border-radius: 8px;
-    border: 1px solid #3e3e42;
+    border: 2px solid #06b6d4;
 }
 
 QSlider::handle:horizontal:hover {
-    background: #0A84FF;
-    border: 2px solid #ffffff;
+    background: #f8fafc;
+    border: 3px solid #3b82f6;
+    width: 18px;
+    height: 18px;
+    margin: -6px 0; /* Üstüne gelince hafif büyüme efekti */
 }
 
-/* Sadece Okunabilir Metin Kutusu (QLineEdit) */
+/* Metin Kutusu (QLineEdit) */
 QLineEdit {
-    background-color: #1e1e1e;
-    border: 1px solid #3e3e42;
-    border-radius: 6px;
-    padding: 6px;
-    color: #0A84FF;
+    background-color: #18181b;
+    border: 2px solid #27272a;
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: #10b981; /* Yazılan metin zümrüt yeşili olacak, dikkat çeker */
     font-weight: bold;
-    text-align: center;
+}
+
+QLineEdit:focus {
+    border: 2px solid #6366f1;
 }
 
 QLineEdit:read-only {
-    background-color: #252526;
-    color: #888888;
-}
-
-/* Çerçeveler (GroupBox) */
-QGroupBox {
-    border: 1px solid #3e3e42;
-    border-radius: 8px;
-    margin-top: 15px;
-    padding-top: 15px;
-}
-
-QGroupBox::title {
-    subcontrol-origin: margin;
-    subcontrol-position: top left;
-    left: 15px;
-    padding: 0 5px;
-    color: #0A84FF;
-    font-weight: bold;
+    background-color: #18181b;
+    color: #a1a1aa;
+    border: 2px dashed #3f3f46; /* Salt okunur olduğu netleşir */
+    font-weight: normal;
 }

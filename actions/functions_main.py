@@ -63,3 +63,18 @@ def check_json(boolValue: bool):
     if not os.path.isfile(conf_path) or boolValue:
         json_save(conf_path, default_settings)
 
+def get_down_mode(index):
+    if index == 0:
+        return "fast"
+    elif index == 1:
+        return "advanced"
+    elif index == 2:
+        return "file"
+
+def get_down_index(down_mode):
+    if down_mode == "fast":
+        return 0
+    elif down_mode == "advanced":
+        return 1
+    elif down_mode == "file":
+        return 2
