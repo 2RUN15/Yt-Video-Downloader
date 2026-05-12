@@ -1,6 +1,8 @@
 import json
 import os
 import sys
+import platform
+import subprocess
 
 def json_save(file_path, data):
     try:
@@ -78,3 +80,8 @@ def get_down_index(down_mode):
         return 1
     elif down_mode == "file":
         return 2
+
+def get_hide_flag():
+    if sys.platform == "win32":
+        return subprocess.CREATE_NO_WINDOW
+    return 0

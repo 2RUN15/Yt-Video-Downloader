@@ -2,7 +2,7 @@ from PyQt6.QtCore import *
 import subprocess
 from packagevalues import vidoe_settings, auido_settings
 import time
-import os
+from actions.functions_main import get_hide_flag
 
 class FileFormatView(QThread):
     log_text = pyqtSignal(str)
@@ -53,6 +53,9 @@ class DownloadWideo(QThread):
         
         self.is_killed = False
         
+        self.hide_flag = get_hide_flag()
+        
+        
         if conf.file_name:
             self.output_template = f"{self.file_path}/{self.file_name}.%(ext)s" 
         else:
@@ -83,7 +86,8 @@ class DownloadWideo(QThread):
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
                 text=True,
-                bufsize=1
+                bufsize=1,
+                creationflags=self.hide_flag
             )
             
             for line in self.result.stdout:
