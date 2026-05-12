@@ -10,6 +10,9 @@ from actions.functions_main import json_read, json_save, get_conf_path,path_join
 from SettingsWindow.settingsapp import SettingsWidget
 from AdvancedWindow.advancedwindowapp import AdvancedWindow
 import platform
+from get_log import log_al
+
+log = log_al("service_window")
 
 APP_ICON = path_join("icons","app.png")
 
@@ -30,6 +33,7 @@ def set_mac_dock_icon_visible(visible):
 class ServiceWindow:
     def __init__(self):
         super().__init__()
+        log.debug("The app has been started")
         
         #DockVisible
         set_mac_dock_icon_visible(False)
@@ -41,6 +45,7 @@ class ServiceWindow:
         self.settingswin = None
         self.savedata = None
         self.downmode = None
+        self.worker_info = {"mode":"", "status":""}
         
         #TrayMenu
         self.tray = QSystemTrayIcon()
@@ -60,7 +65,7 @@ class ServiceWindow:
         
         self.action_settings.triggered.connect(self.open_settings)
         
-        self.action_exit.triggered.connect(QApplication.instance().quit)
+        self.action_exit.triggered.connect(self._exit)
         
         #Action'u menüye ekleme
         self.menu.addAction(self.action_actv)
@@ -83,30 +88,32 @@ class ServiceWindow:
             self.main_ui.show()
         
         #Windows
-        self.savedata = json_read(self.confpath)
-        self.downmode = self.savedata["downmode"]
-        if self.downmode == "fast":
-            self.worker = FastApp()
-            self.worker.start()
-        elif self.downmode == "advanced":
-            self.worker = AdvancedApp()
-            self.worker.start()
+        
+        self.start_worker()
     
     def fast_proc_stat(self, boolval):
         if boolval and self.downmode == "fast":
             self.worker.start()
+            self.worker_info.update(mode = "fast", status = "active")
         elif not boolval and self.downmode == "fast":
+            self.worker_info.update(mode = "fast", status = "deactive")
             self.worker.stop()
         
         if boolval and self.downmode == "advanced":
+            self.worker_info.update(mode = "advanced", status = "active")
             self.worker.start()
         elif not boolval and self.downmode == "advanced":
+            self.worker_info.update(mode = "advanced", status = "deactive")
             self.worker.stop()
+        
+        log.debug(f"App worker mode: {self.worker_info["mode"]} | App worker status: {self.worker_info["status"]}")
     
     def open_settings(self):
+        log.debug("Settings Win opened.")
         set_mac_dock_icon_visible(True)
         
         if hasattr(self, "worker") and self.worker:
+            log.debug(f"Current worker ({self.worker_info["mode"]}) stoped")
             self.worker.stop()
         if hasattr(self, "settingswin") and self.settingswin is not None:
             self.settingswin.activateWindow()
@@ -130,17 +137,23 @@ class ServiceWindow:
 
         if self.downmode == "fast":
             self.worker = FastApp()
+            self.worker_info["mode"] = "fast"
         elif self.downmode == "advanced":
+            self.worker_info["mode"] = "advanced"
             self.worker = AdvancedApp()
             
         self.worker.update_settings()
         self.worker.start()
     
     def _on_settings_closed(self):
+        log.debug("Settings Win Closed")
         self.settingswin = None
         set_mac_dock_icon_visible(False)
         if hasattr(self, "worker") and self.worker:
+            log.debug(f"Current worker ({self.worker_info["mode"]}) started")
             self.worker.update_settings()
             self.start_worker()
-        
-        
+    
+    def _exit(self):
+        log.debug("The app has been logged out\n")
+        QApplication.instance().quit()
