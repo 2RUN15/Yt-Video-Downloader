@@ -2,12 +2,13 @@ from NotificationWindow.frontend import Ui_Form
 from PyQt6.QtCore import *
 from PyQt6.QtWidgets import *
 from PyQt6.QtGui import QGuiApplication
+from actions.functions_main import path_join, file_read
 
 # 1. QWidget yerine QDialog miras alıyoruz
 class NotificationWindow(QDialog):
     # Sinyale artık ihtiyacın kalmayabilir çünkü exec() doğrudan değer döndürür, 
     # ama yapıya dokunmuyorum, istersen kalabilir.
-    result_signal = pyqtSignal(bool) 
+    result_signal = pyqtSignal(bool)
     
     def __init__(self):
         super().__init__()
@@ -21,6 +22,12 @@ class NotificationWindow(QDialog):
                             Qt.WindowType.ToolTip)
         
         self.locate_screen()
+        
+        #Style
+        style_path = path_join("assets","notification_win.qss")
+        print(style_path)
+        self.styleFile = file_read(style_path)
+        self.setStyleSheet(self.styleFile)
         
         # 2. Buton bağlantılarını QDialog'un yerleşik metotlarına bağlıyoruz
         self.ui.yesButton.clicked.connect(self.accept) # accept() -> exec'den 1 döner
